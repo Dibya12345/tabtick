@@ -1,3 +1,4 @@
+import colors from "@/utils";
 import { StyleSheet, Text, View } from "react-native";
 
 const ProfileIcon = ({ name = "Alex" }) => {
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: "#4F46E5",
+    backgroundColor: colors.primary,
     justifyContent: "center",
     alignItems: "center",
   },
