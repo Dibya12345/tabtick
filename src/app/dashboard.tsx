@@ -4,12 +4,18 @@ import ProfileIcon from "@/components/ProfileIcons";
 import RecentTripCard from "@/components/RecentTripCard";
 import TravelIllustration from "@/components/TravelIllustration";
 
-import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+} from "react-native";
 
 const Dashboard = () => {
   const { width, height } = useWindowDimensions();
   return (
-    <View
+    <ScrollView
       style={{
         marginTop: height * 0.04,
         paddingHorizontal: width * 0.04,
@@ -46,7 +52,7 @@ const Dashboard = () => {
         <CreateTripButton />
         <RecentTripCard />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
