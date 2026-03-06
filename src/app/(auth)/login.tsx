@@ -1,16 +1,18 @@
+import { Ionicons } from "@expo/vector-icons";
+import Entypo from "@expo/vector-icons/Entypo";
+
 import React, { useState } from "react";
 import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  StatusBar,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 
 const colors = {
   primary: "#367b7d",
@@ -71,30 +73,59 @@ const LoginScreen = ({ navigation }) => {
 
         {/* Email Input */}
         <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            placeholderTextColor="#9ca3af"
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
-            autoCapitalize="none"
-            autoCorrect={false}
-          />
+          <Text style={styles.inputLabel}>Email</Text>
+
+          <View style={styles.inputWrapper}>
+            {email.length > 0 && (
+              <TouchableOpacity onPress={() => setEmail("")}>
+                <Entypo
+                  name="circle-with-cross"
+                  size={20}
+                  color="#6b7280"
+                  style={styles.inputIcon}
+                />
+              </TouchableOpacity>
+            )}
+
+            <TextInput
+              style={styles.input}
+              placeholder="Email"
+              placeholderTextColor="#9ca3af"
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+          </View>
         </View>
 
         {/* Password Input */}
         <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Password"
-            placeholderTextColor="#9ca3af"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-            autoCapitalize="none"
-            autoCorrect={false}
-          />
+          <Text style={styles.inputLabel}>Password</Text>
+          <View style={styles.inputWrapper}>
+            {password.length > 0 && (
+              <TouchableOpacity onPress={() => setPassword("")}>
+                <Entypo
+                  name="circle-with-cross"
+                  size={20}
+                  color="#6b7280"
+                  style={styles.inputIcon}
+                />
+              </TouchableOpacity>
+            )}
+
+            <TextInput
+              style={styles.input}
+              placeholder="Password"
+              placeholderTextColor="#9ca3af"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+          </View>
         </View>
 
         {/* Forgot Password */}
@@ -152,15 +183,25 @@ const styles = StyleSheet.create({
   inputContainer: {
     marginBottom: 16,
   },
-  input: {
-    backgroundColor: "#ffffff",
-    borderWidth: 1,
-    borderColor: "#e5e7eb",
+  inputLabel: {
+    marginBottom: 4,
+  },
+  inputWrapper: {
+    flexDirection: "row-reverse",
+    alignItems: "center",
+    backgroundColor: "#e0e0e0",
     borderRadius: 8,
-    paddingHorizontal: 16,
+  },
+  inputIcon: {
+    marginRight: 8,
+  },
+  input: {
+    flex: 1,
     paddingVertical: 16,
     fontSize: 16,
-    color: colors["background-dark"],
+    backgroundColor: "#e0e0e0",
+    borderRadius: 8,
+    paddingHorizontal: 16,
   },
   forgotPasswordContainer: {
     alignItems: "flex-end",
