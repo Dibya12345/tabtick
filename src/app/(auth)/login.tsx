@@ -10,128 +10,115 @@ import {
   Platform,
   ScrollView,
 } from "react-native";
-import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
-import colors from "@/utils";
+import { Ionicons } from "@expo/vector-icons";
 
-const Login = () => {
+const colors = {
+  primary: "#367b7d",
+  accent: "#E08E77",
+  "background-light": "#fafaf9",
+  "background-dark": "#161a1d",
+};
+
+const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = () => {
+    // Handle login logic here
     console.log("Login pressed", { email, password });
-    // Add your login logic here
+  };
+
+  const handleSignUp = () => {
+    // Navigate to sign up screen
+    console.log("Sign up pressed");
+  };
+
+  const handleForgotPassword = () => {
+    // Navigate to forgot password screen
+    console.log("Forgot password pressed");
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
       <StatusBar
         barStyle="dark-content"
         backgroundColor={colors["background-light"]}
       />
 
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.keyboardView}
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps="handled"
       >
-        <ScrollView
-          contentContainerStyle={styles.scrollContent}
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled"
+        {/* Back Button */}
+        <TouchableOpacity style={styles.backButton}>
+          <Ionicons
+            name="arrow-back"
+            size={24}
+            color={colors["background-dark"]}
+          />
+        </TouchableOpacity>
+
+        {/* Logo/Icon */}
+        <View style={styles.logoContainer}>
+          <Ionicons name="rocket-outline" size={80} color={colors.primary} />
+        </View>
+
+        {/* Welcome Text */}
+        <Text style={styles.welcomeText}>Welcome back.</Text>
+
+        {/* Email Input */}
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            placeholderTextColor="#9ca3af"
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+        </View>
+
+        {/* Password Input */}
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Password"
+            placeholderTextColor="#9ca3af"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+        </View>
+
+        {/* Forgot Password */}
+        <TouchableOpacity
+          style={styles.forgotPasswordContainer}
+          onPress={handleForgotPassword}
         >
-          <View style={styles.contentContainer}>
-            {/* Header with Logo */}
-            <View style={styles.headerSection}>
-              <View style={styles.logoContainer}>
-                <MaterialCommunityIcons
-                  name="clipboard-check-outline"
-                  size={60}
-                  color={colors.primary}
-                />
-              </View>
+          <Text style={styles.forgotPasswordText}>Forgot your password?</Text>
+        </TouchableOpacity>
 
-              <Text style={styles.appTitle}>TabiTick</Text>
-              <Text style={styles.tagline}>
-                Your travel checklist companion
-              </Text>
-            </View>
+        {/* Login Button */}
+        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+          <Text style={styles.loginButtonText}>LOGIN</Text>
+        </TouchableOpacity>
 
-            {/* Login Form */}
-            <View style={styles.loginCard}>
-              <Text style={styles.welcomeText}>Welcome Back</Text>
-              <Text style={styles.subtitleText}>Sign in to continue</Text>
-
-              {/* Email Input */}
-              <View style={styles.inputContainer}>
-                <MaterialCommunityIcons
-                  name="email-outline"
-                  size={20}
-                  color={colors.primary}
-                />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Email address"
-                  placeholderTextColor="#999"
-                  value={email}
-                  onChangeText={setEmail}
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                />
-              </View>
-
-              {/* Password Input */}
-              <View style={styles.inputContainer}>
-                <MaterialCommunityIcons
-                  name="lock-outline"
-                  size={20}
-                  color={colors.primary}
-                />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Password"
-                  placeholderTextColor="#999"
-                  value={password}
-                  onChangeText={setPassword}
-                  secureTextEntry={!showPassword}
-                  autoCapitalize="none"
-                />
-                <TouchableOpacity
-                  onPress={() => setShowPassword(!showPassword)}
-                  activeOpacity={0.7}
-                >
-                  <Ionicons
-                    name={showPassword ? "eye-outline" : "eye-off-outline"}
-                    size={20}
-                    color="#666"
-                  />
-                </TouchableOpacity>
-              </View>
-
-              {/* Forgot Password */}
-              <TouchableOpacity style={styles.forgotPasswordButton}>
-                <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-              </TouchableOpacity>
-
-              {/* Login Button */}
-              <TouchableOpacity
-                style={styles.loginButton}
-                onPress={handleLogin}
-                activeOpacity={0.8}
-              >
-                <Text style={styles.loginButtonText}>Login</Text>
-              </TouchableOpacity>
-
-              {/* Divider */}
-
-              {/* Social Login Buttons */}
-            </View>
-
-            {/* Sign Up Link */}
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </View>
+        {/* Sign Up Link */}
+        <View style={styles.signUpContainer}>
+          <Text style={styles.signUpText}>Don't have an account? </Text>
+          <TouchableOpacity onPress={handleSignUp}>
+            <Text style={styles.signUpLink}>Sign up</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -140,107 +127,76 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors["background-light"],
   },
-  keyboardView: {
-    flex: 1,
-  },
   scrollContent: {
     flexGrow: 1,
-    justifyContent: "center",
-  },
-  contentContainer: {
     paddingHorizontal: 24,
-    paddingVertical: 40,
+    paddingTop: 60,
   },
-  headerSection: {
-    alignItems: "center",
-    marginBottom: 40,
+  backButton: {
+    width: 40,
+    height: 40,
+    justifyContent: "center",
+    marginBottom: 20,
   },
   logoContainer: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    backgroundColor: "#fff",
-    justifyContent: "center",
     alignItems: "center",
-    marginBottom: 16,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 3,
+    marginBottom: 24,
   },
-  appTitle: {
+  welcomeText: {
     fontSize: 32,
     fontWeight: "700",
     color: colors.primary,
-    marginBottom: 4,
-  },
-  tagline: {
-    fontSize: 14,
-    color: "#666",
-    fontWeight: "400",
-  },
-  loginCard: {
-    backgroundColor: "#fff",
-    borderRadius: 20,
-    padding: 24,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-    elevation: 3,
-    marginBottom: 20,
-  },
-  welcomeText: {
-    fontSize: 24,
-    fontWeight: "700",
-    color: colors["background-dark"],
-    marginBottom: 4,
-  },
-  subtitleText: {
-    fontSize: 14,
-    color: "#666",
-    marginBottom: 24,
+    textAlign: "center",
+    marginBottom: 32,
   },
   inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: colors["background-light"],
-    borderRadius: 12,
     marginBottom: 16,
-    paddingHorizontal: 16,
-    height: 52,
-    borderWidth: 1,
-    borderColor: "#e5e5e5",
   },
   input: {
-    flex: 1,
-    fontSize: 15,
+    backgroundColor: "#ffffff",
+    borderWidth: 1,
+    borderColor: "#e5e7eb",
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    fontSize: 16,
     color: colors["background-dark"],
-    marginLeft: 12,
   },
-  forgotPasswordButton: {
-    alignSelf: "flex-end",
-    marginBottom: 20,
+  forgotPasswordContainer: {
+    alignItems: "flex-end",
+    marginBottom: 24,
   },
   forgotPasswordText: {
-    fontSize: 13,
-    color: colors.primary,
-    fontWeight: "600",
+    color: "#6b7280",
+    fontSize: 14,
   },
   loginButton: {
     backgroundColor: colors.primary,
-    borderRadius: 12,
-    height: 52,
-    justifyContent: "center",
+    borderRadius: 8,
+    paddingVertical: 16,
     alignItems: "center",
     marginBottom: 20,
   },
   loginButtonText: {
+    color: "#ffffff",
     fontSize: 16,
+    fontWeight: "700",
+    letterSpacing: 1,
+  },
+  signUpContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  signUpText: {
+    color: "#6b7280",
+    fontSize: 14,
+  },
+  signUpLink: {
+    color: colors.primary,
+    fontSize: 14,
     fontWeight: "600",
-    color: "#fff",
   },
 });
 
-export default Login;
+export default LoginScreen;
