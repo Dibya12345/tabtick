@@ -1,0 +1,20 @@
+node_modules
+.expo
+.expo-shared
+dist
+build
+coverage
+android
+ios
+
+# logs
+*.log
+
+# env files
+.env
+.env.*
+
+# lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
