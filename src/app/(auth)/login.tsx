@@ -3,6 +3,7 @@ import Entypo from "@expo/vector-icons/Entypo";
 
 import React, { useState } from "react";
 import {
+  Image,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -21,7 +22,7 @@ const colors = {
   "background-dark": "#161a1d",
 };
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = ({  }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -59,17 +60,21 @@ const LoginScreen = ({ navigation }) => {
           <Ionicons
             name="arrow-back"
             size={24}
-            color={colors["background-dark"]}
+            color={colors["background-light"]}
           />
         </TouchableOpacity>
 
         {/* Logo/Icon */}
         <View style={styles.logoContainer}>
-          <Ionicons name="rocket-outline" size={80} color={colors.primary} />
+          <Image
+            source={require("../../../assets/images/tabitick_logo_hd.png")}
+            style={{ width: 220, height: 100, resizeMode: "contain" }}
+          />
         </View>
 
         {/* Welcome Text */}
-        <Text style={styles.welcomeText}>Welcome back.</Text>
+        <Text style={styles.welcomeText}>Welcome back</Text>
+        <Text style={styles.subText}>Sign in to continue to Tabitick</Text>
 
         {/* Email Input */}
         <View style={styles.inputContainer}>
@@ -166,7 +171,10 @@ const styles = StyleSheet.create({
   backButton: {
     width: 40,
     height: 40,
+    backgroundColor: colors.accent,
     justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 50,
     marginBottom: 20,
   },
   logoContainer: {
@@ -174,11 +182,21 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   welcomeText: {
-    fontSize: 32,
-    fontWeight: "700",
+    fontSize: 22,
+    fontWeight: "600",
+    fontStyle: "italic",
     color: colors.primary,
     textAlign: "center",
-    marginBottom: 32,
+  },
+
+  subText: {
+    fontSize: 14,
+    fontStyle: "italic",
+    color: "#6b7280",
+    textAlign: "center",
+    marginTop: 4,
+    marginBottom: 28,
+    fontWeight: "bold",
   },
   inputContainer: {
     marginBottom: 16,
